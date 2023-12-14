@@ -19,10 +19,10 @@
     <body>
 
         <?php
-            if($_SERVER["REQUEST_METHOD"] == "POST"){
-                $titulo = $_POST["titulo"];
+            if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["envio"] == "crear"){
+                $titulo = strtoupper($_POST["titulo"]);
                 $paginas = (int) $_POST["paginas"];
-                $autor = $_POST["autor"];
+                $autor = strtoupper($_POST["autor"]);
                 
                 if(sqlExiteLibro($titulo)){
                     $mensajeError = "Error el libro ya ha sido añadido";
@@ -31,7 +31,8 @@
                     $sql -> bind_param("sis",$titulo,$paginas,$autor);
                     $sql -> execute();
                 }
-                
+            }else if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["envio"] == "ver listado"){
+                header("location: index.php");
             }
         ?>
 
@@ -53,15 +54,16 @@
                 </div>
 
                 <div class="mb-3">
-                    <input type="submit" class="btn btn-warning" value="crear">
+                    <input type="submit" class="btn btn-warning" name="envio" value="crear">
+                    <input type="submit" class="btn btn-warning" name="envio" value="ver listado">
                 </div>
             </form>
-
+            
             <?php
                 if(isset($mensajeError)){
                     ?>
                         <div class="mb-3">
-                            <p class="bg-info"> <?php echo $mensajeError ?> </p>
+                            <p class="bg-info text-center rounded-pill"> <?php echo $mensajeError ?> </p>
                         </div>
                     <?php
                 }

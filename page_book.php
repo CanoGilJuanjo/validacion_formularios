@@ -23,9 +23,9 @@
         <div class="container">
             <?php
                 if($_SERVER["REQUEST_METHOD"] == "POST"){
-                    $busqueda = $_POST["busqueda"];
+                    $busqueda = "%".$_POST["busqueda"]."%";
 
-                    $sql = $_conexion->prepare("SELECT * from libros where titulo like '%". "?" ."%';");
+                    $sql = $_conexion->prepare("SELECT * from libros where titulo like ?;");
                     $sql -> bind_param("s",$busqueda);
                     $sql->execute();
                     $resultado = $sql->get_result();
@@ -52,6 +52,7 @@
                 
                 ?>
                 </table>
+            <a href="index.php"><button class="btn btn-warning">Volver</button></a>
         </div>
     </body>
 </html>
