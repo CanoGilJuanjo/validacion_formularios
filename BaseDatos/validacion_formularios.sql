@@ -2,7 +2,7 @@ create schema db_libros;
 use db_libros;
 
 create table libros(
-	titulo varchar(200) primary key,
+	titulo varchar(200) primary key not null,
     paginas int not null,
     autor varchar(60) not null
 );

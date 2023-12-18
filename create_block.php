@@ -20,9 +20,9 @@
 
         <?php
             if($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["envio"] == "crear"){
-                $titulo = strtoupper($_POST["titulo"]);
+                $titulo = $_POST["titulo"];
                 $paginas = (int) $_POST["paginas"];
-                $autor = strtoupper($_POST["autor"]);
+                $autor = $_POST["autor"];
                 
                 if(sqlExiteLibro($titulo)){
                     $mensajeError = "Error el libro ya ha sido añadido";

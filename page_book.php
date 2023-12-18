@@ -24,32 +24,30 @@
             <?php
                 if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $busqueda = "%".$_POST["busqueda"]."%";
-
                     $sql = $_conexion->prepare("SELECT * from libros where titulo like ?;");
                     $sql -> bind_param("s",$busqueda);
                     $sql->execute();
                     $resultado = $sql->get_result();
-                ?>
-                <table class="table table-hover">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Titulo</th>
-                            <th>Paginas</th>
-                            <th>Autor</th>
-                        </tr>
-                    </thead>
-                <?php
-                    if($_SERVER["REQUEST_METHOD"] == "POST"){
-                        while($libro = $resultado->fetch_assoc()){
-                            echo "<tr>";
-                            echo "<td>".$libro["titulo"]."</td>";
-                            echo "<td>".$libro["paginas"]."</td>";
-                            echo "<td>".$libro["autor"]."</td>";
-                            echo "</tr>";
+                    ?>
+                    <table class="table table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Paginas</th>
+                                <th>Autor/a</th>
+                            </tr>
+                        </thead>
+                    <?php
+                        if($_SERVER["REQUEST_METHOD"] == "POST"){
+                            while($libro = $resultado->fetch_assoc()){
+                                echo "<tr>";
+                                echo "<td>".$libro["titulo"]."</td>";
+                                echo "<td>".$libro["paginas"]."</td>";
+                                echo "<td>".$libro["autor"]."</td>";
+                                echo "</tr>";
+                            }
                         }
-                    }
                 }
-                
                 ?>
                 </table>
             <a href="index.php"><button class="btn btn-warning">Volver</button></a>
